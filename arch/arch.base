@@ -1,0 +1,13 @@
+# Copyright 2018 Danilo Spinella <danyspin97@protonmail.com>
+# Distributed under the terms of the GNU General Public License v3
+
+if cpuid -l; then
+menuentry "Arch Linux %%VERSION%% x86_64" --class arch {
+  set isoname="archlinux-%%VERSION%%-x86_64.iso"
+  set isofile="${isopath}/arch/${isoname}"
+  echo "Using ${isoname}..."
+  loopback loop $isofile
+  linux (loop)/arch/boot/x86_64/vmlinuz img_label=LUMI img_loop=$isofile
+  initrd (loop)/arch/boot/intel_ucode.img (loop)/arch/boot/x86_64/archiso.img
+}
+fi
